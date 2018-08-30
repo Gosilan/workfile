@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Message Parser</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+</head>
+
+<body>
+    <div class="container">
+        <h2>User Input Area</h2>
+        <p>Please Enter Your Message here.</p>
+        <form>
+            <div class="form-group">
+                <label for="comment">Message:</label>
+                <textarea id = "myTextarea" class="form-control" rows="5" id="comment"></textarea>
+            </div>
+        </form>
+        <a href="" onclick="ParseText(); return false;">Send!</a>
+
+    </div>
+    <br>
+    
+    <script>
+
+
+        
+        function ParseText() {
+            [].forEach.call(document.querySelectorAll('.jumbotron'),function(e){
+                 e.parentNode.removeChild(e);
+            });
+            var arr = [];
+            var value = document.getElementById('myTextarea').value;
+            var tempArr = value.split(" ");
+            // tempArr = tempArr.replace(/,/g, " ");
+            console.log(tempArr);
+            let count = tempArr.length;
+            var numberOfSets = Math.floor(count/51);
+            console.log("count is ", numberOfSets);
+            if(count == 1 && tempArr[0].length >= 50 ) {
+                var div = document.createElement("div");
+                document.body.appendChild(div);
+                div.id = 'test';
+                div.className = 'jumbotron col-md-6 col-md-offset-3';
+                div.innerHTML = "<b>Error</b>";
+            }
+            else{
+            var arrCount = 0;
+            for(var i = 0;i<=numberOfSets;i++){
+                var div = document.createElement("div");
+                document.body.appendChild(div);
+                div.id = 'test' + i;
+                div.className = 'jumbotron col-md-6 col-md-offset-3';
+                
+                div.innerHTML = (i+1) +"/" + (numberOfSets + 1) + "  :"+tempArr.slice(arrCount,arrCount + 50).toString().replace (/,/g, " ");
+                arrCount = arrCount + 51;
+            }
+        }
+            
+        }
+    </script>
+</body>
+
+</html>
